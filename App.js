@@ -8,19 +8,21 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { Swipeable } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons/Ionicons";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-const App = () => {
+export default function App() {
   const defaultEmployees = [
-    { id: 10, name: "Alesandro Del Piero" },
-    { id: 20, name: "Christaino Ronaldo" },
-    { id: 30, name: "Rudd Van Nistelrooy" },
+    { id: "11", name: "Alesandro Del Piero" },
+    { id: "202", name: "Christaino Ronaldo" },
+    { id: "310", name: "Rudd Van Nistelrooy" },
+    { id: "40323", name: "David Beckham" },
   ];
   const [employees, setEmployees] = useState(defaultEmployees);
   const deleteEmployee = (id) => {
-    const tempEmployee = employees.filter((em) => {
-      return em.id != id;
+    console.log("delete account id = $id");
+    const tempEmployee = employees.filter((employee) => {
+      return employee.id != id;
     });
     setEmployees(tempEmployee);
   };
@@ -28,7 +30,7 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={employees}
-        keyExtractor={(item) => item.id.toString}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (
             <Swipeable
@@ -49,9 +51,7 @@ const App = () => {
             </Swipeable>
           );
         }}
-      >
-        ItemSeparateComponent ={" "}
-        {() => {
+        ItemSeparateComponent={() => {
           return (
             <View
               style={{
@@ -62,11 +62,10 @@ const App = () => {
             />
           );
         }}
-      </FlatList>
+      />
     </SafeAreaView>
   );
-};
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -93,5 +92,3 @@ const styles = StyleSheet.create({
     width: "20%",
   },
 });
-
-export default App;
